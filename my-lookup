@@ -1,0 +1,29 @@
+#!/bin/bash
+# checks of the input of the user, so that the three inputs are not empty 
+#and that 1 input ends with the .txt extension 
+if [ ! -z "$1" ] && [ ! -z "$2" ] && [ -z "$3" ] && [[ $1 == *".txt" ]]
+then
+        FILENAME="$HOME/$1"
+        if [ -f "$FILENAME" ]; then
+		#REGEX: grep for $FILENAME to return names containing only letters
+		grep -P "^[a-zA-Z]+(?: [a-zA-z]+)* ($2)$" $FILENAME
+                echo " "
+                echo "Goodbye!"
+        else
+		#if there's no filename or not filename named of sort
+		#we prompt the user that the file provided does not exist
+                echo ""
+                echo "$1 does not exists"
+                echo ""
+        fi
+
+else
+	#if the users input command doesn't match the required format 
+	#we prompt them with messages that give them a hint as to what might 
+	#be wrong with their formatting
+        echo ""
+        echo "You need to provide two arguments for this script to work."
+        echo "Usage: my-lookup <text file name> <last name>"
+        echo "Your text file name has to have the '.txt' at the end."
+        echo ""
+fi
